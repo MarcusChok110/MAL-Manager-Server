@@ -7,10 +7,13 @@ const base64url = require('base64url');
 const crypto = require('crypto');
 const randomstring = require('randomstring');
 const querystring = require('querystring');
+const axios = require('axios');
 require('dotenv').config();
 
 // MAL API Client ID
 const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const redirect_url = 'http://localhost:3000/login';
 
 // GET request for login URL
 router.get('/new', (req, res) => {
@@ -19,15 +22,52 @@ router.get('/new', (req, res) => {
   });
 });
 
+// POST request to use Authorisation code to obtain access token
+router.post('/', (req, res) => {
+  const { code, state } = req.body;
+
+  if (!code || !state) {
+    throw new Error('No code or state provided.');
+  }
+
+  const url = 'https://myanimelist.net/v1/oauth2/token';
+
+  const data = {
+    client_id: CLIENT_ID,
+    client_secret: CLIENT_SECRET,
+    code: code,
+    code_verifier: state, // code verifier was passed as state in api call
+    grant_type: 'authorization_code',
+    redirect_url: redirect_url,
+  };
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  };
+
+  axios
+    .post(url, querystring.stringify(data), config)
+    .then((response) => {
+      return response.data;
+    })
+    .then((response) => {
+      return res.json(response);
+    });
+});
+
 // creates login url to be sent to user
 function generateLoginURL() {
   const url = 'https://myanimelist.net/v1/oauth2/authorize';
 
+  const code_verifier = generateCodeChallenge();
+
   const params = {
     response_type: 'code',
     client_id: CLIENT_ID,
-    code_challenge: generateCodeChallenge(),
-    state: 'malmanrq',
+    code_challenge: code_verifier,
+    state: code_verifier,
   };
 
   return `${url}?${querystring.stringify(params)}`;

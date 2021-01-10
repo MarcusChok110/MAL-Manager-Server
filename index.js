@@ -14,6 +14,10 @@ const app = express();
 app.use(cors());
 app.options('*', cors());
 
+// parse body
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Routes
 app.use('/session', session);
 
