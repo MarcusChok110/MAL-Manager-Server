@@ -52,7 +52,12 @@ router.post('/', (req, res) => {
       return response.data;
     })
     .then((response) => {
-      return res.json(response);
+      return res
+        .cookie('auth_token', response.access_token, {
+          maxAge: 86_400_000,
+          httpOnly: true,
+        })
+        .send();
     })
     .catch((response) => {
       console.error(response);

@@ -3,11 +3,11 @@ const router = express.Router();
 const axios = require('axios');
 
 router.get('/', (req, res) => {
-  const token = req.header('Authorization');
+  const token = req.cookies.auth_token;
   const url = 'https://api.myanimelist.net/v2/users/@me/animelist?limit=1000';
   const options = {
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   };
 
