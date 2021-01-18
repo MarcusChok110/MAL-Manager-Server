@@ -25,7 +25,6 @@ router.get('/new', (req, res) => {
 // POST request to use Authorisation code to obtain access token
 router.post('/', (req, res) => {
   const { code, state } = req.body;
-
   if (!code || !state) {
     throw new Error('No code or state provided.');
   }
@@ -54,6 +53,9 @@ router.post('/', (req, res) => {
     })
     .then((response) => {
       return res.json(response);
+    })
+    .catch((response) => {
+      console.error(response);
     });
 });
 
