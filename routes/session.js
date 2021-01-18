@@ -64,6 +64,11 @@ router.post('/', (req, res) => {
     });
 });
 
+// POST request on logout route to expire the session cookie
+router.post('/logout', (req, res) => {
+  res.clearCookie('auth_token').send();
+});
+
 // creates login url to be sent to user
 function generateLoginURL() {
   const url = 'https://myanimelist.net/v1/oauth2/authorize';
