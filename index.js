@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -14,8 +15,11 @@ const PORT = process.env.PORT || 8888;
 const app = express();
 
 // Enabled CORS
-app.use(cors());
-app.options('*', cors());
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // parse body
 app.use(express.json());
@@ -23,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // other middleware
 app.use(helmet());
+app.use(cookieParser());
 
 // Routes
 app.use('/session', session);
