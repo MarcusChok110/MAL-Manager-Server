@@ -12,6 +12,7 @@ const user = require('./routes/user');
 const animelist = require('./routes/animelist');
 
 const PORT = process.env.PORT || 8888;
+const COOKIE_SECRET = process.env.COOKIE_SECRET;
 const app = express();
 
 // Enabled CORS
@@ -27,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // other middleware
 app.use(helmet());
-app.use(cookieParser());
+app.use(cookieParser(COOKIE_SECRET));
 
 // Routes
 app.use('/session', session);

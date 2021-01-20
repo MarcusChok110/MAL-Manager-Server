@@ -56,6 +56,7 @@ router.post('/', (req, res) => {
         .cookie('auth_token', response.access_token, {
           maxAge: 86_400_000,
           httpOnly: true,
+          signed: true,
         })
         .send();
     })
