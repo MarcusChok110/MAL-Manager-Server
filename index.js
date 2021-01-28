@@ -15,9 +15,14 @@ const PORT = process.env.PORT || 8888;
 const COOKIE_SECRET = process.env.COOKIE_SECRET;
 const app = express();
 
+const origin =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://marcuschok110.github.io';
+
 // Enabled CORS
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: origin,
   credentials: true,
 };
 app.use(cors(corsOptions));
