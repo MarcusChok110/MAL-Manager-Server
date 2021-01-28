@@ -60,6 +60,8 @@ router.post('/', (req, res) => {
           maxAge: 86_400_000,
           httpOnly: true,
           signed: true,
+          sameSite: 'none',
+          secure: true,
         })
         .send();
     })
