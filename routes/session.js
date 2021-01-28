@@ -16,7 +16,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const redirect_url =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000/login'
-    : 'https://marcuschok110.github.io/mal-manager-client/#/login';
+    : 'https://mal-manager-client.herokuapp.com/login';
 
 // GET request for login URL
 router.get('/new', (req, res) => {

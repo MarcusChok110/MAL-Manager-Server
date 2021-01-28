@@ -18,7 +18,7 @@ const app = express();
 const origin =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'https://marcuschok110.github.io';
+    : 'https://mal-manager-client.herokuapp.com';
 
 // Enabled CORS
 const corsOptions = {
