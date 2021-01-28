@@ -13,7 +13,10 @@ require('dotenv').config();
 // MAL API Client ID
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const redirect_url = 'http://localhost:3000/login';
+const redirect_url =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000/login'
+    : 'https://MarcusChok110.github.io/mal-manager-client/login';
 
 // GET request for login URL
 router.get('/new', (req, res) => {
