@@ -7,6 +7,7 @@ mal-manager-server is the backend of this web application. To view and setup the
 ## Live Demo
 
 The live demo of the server is at the following link: https://mal-manager-server.herokuapp.com/
+* *This is only the API. To view the full application, visit the client page.*
 
 ## Local Installation
 
